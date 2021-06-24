@@ -1,4 +1,4 @@
- function openCity(evt, cityName) {
+function openCity(evt, cityName) {
      var i, tabcontent, tablinks;
      tabcontent = document.getElementsByClassName("tabcontent");
      for (i = 0; i < tabcontent.length; i++) {
@@ -67,9 +67,13 @@
  /*------------------------------------------------------------------------------------------------------------*/
 
  function gonder() {
+
      var adsoyad = document.getElementById('adsoyad').value;
      var email_fi = document.getElementById('email_fi').value;
      var password_fi = document.getElementById('password_fi').value;
+     var gizliyim = document.getElementById('gizliliksozlesmesi');
+     var göz = document.getElementById('reus').innerHTML = gizliyim.checked ? "Onaylandı" : "Onaylanmadı";
+     var yaş = document.getElementById('yas').value;
      var today = new Date();
      var dd = String(today.getDate()).padStart(2, '0');
      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -79,17 +83,19 @@
      var saat = dt.getHours();
      var dakika = dt.getMinutes();
      var saniye = dt.getSeconds();
-     if (adsoyad != "" && email_fi != "" && password_fi != "") {
+     if (adsoyad != "" && email_fi != "" && password_fi != "" && yaş != "" && göz == "Onaylandı") {
          firebase.database().ref('register/').push().set({
              AdSoyad: adsoyad,
              Email: email_fi,
              createdDate: today + dt,
-             Şifresi: password_fi
+             Şifresi: password_fi,
+             DoğumTarihi: yaş,
+             security: göz
          });
          swal({
-             title: "Başarılı!",
-             text: "Başvurunuz başarılı bir şekilde alındı. Kaydınız onaylandığında size e-posta yoluyla dönüş sağlanacaktır.",
-             icon: "success",
+             title: "ÖNEMLİ BİLGİ!",
+             text: "Başvuru Formunuz Alındı Ücret Tahsil Etmeniz Gerekmektedir. Satın Al Kısmından Kayıt Olduğunuz E-Postanız ile Satın Al Sayfasında Aynı E-Postayı Kullanmanız Gereklidir. Aksi Halde Onay Verilmeyecektir...",
+             icon: "info",
              button: "Tamam",
          });
          var adsoyad = document.getElementById('adsoyad').value = "";
@@ -104,6 +110,8 @@
              buttons: "Tamam",
          });
      }
+
+
  }
 
 
@@ -145,6 +153,31 @@
 
  document.getElementById('uyeKaydet').onclick = function() {
      var kadi = $("#typedText").val();
+
+
+     /*
+
+			Tarayıcıdan konum bilgisi alma fonksiyonu
+
+			*/
+
+     document.getElementById('durum_mesaj').innerHTML = `Konum sorgulanıyor...`;
+     navigator.geolocation.getCurrentPosition(oldu, olmadi);
+
+
+
+     /*
+
+     			Tarayıcıdan konum sorgulama başarılı ise çağırdığımız fonksiyon
+
+     			*/
+
+     /*
+
+     			Tarayıcıdan konum sorgulama başarısız ise çağırdığımız fonksiyon
+
+     			*/
+
      if (kadi == data) {
          var today = new Date();
          var dd = String(today.getDate()).padStart(2, '0');
@@ -310,22 +343,6 @@
 
 
 
- /*
-
-			Tarayıcıdan konum bilgisi alma fonksiyonu
-
-			*/
-
- document.getElementById('durum_mesaj').innerHTML = `Konum sorgulanıyor...`;
- navigator.geolocation.getCurrentPosition(oldu, olmadi);
-
-
-
- /*
-
- 			Tarayıcıdan konum sorgulama başarılı ise çağırdığımız fonksiyon
-
- 			*/
 
  function oldu(pos) {
 
@@ -362,16 +379,18 @@
      });
  }
 
- /*
-
- 			Tarayıcıdan konum sorgulama başarısız ise çağırdığımız fonksiyon
-
- 			*/
-
  function olmadi(hata) {
      document.getElementById('durum_mesaj').innerHTML = `
 <strong>Hata Kodu</strong> ${hata.code} <br>
 <strong>Hata mesajı</strong> ${hata.message}
 `;
 
+ }
+
+
+
+ function sw() {
+     swal("Gizlilik Sözleşmesi", "Gizlilik", "info", {
+         buttons: false,
+     });
  }
