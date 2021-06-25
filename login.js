@@ -1,4 +1,4 @@
-function openCity(evt, cityName) {
+ function openCity(evt, cityName) {
      var i, tabcontent, tablinks;
      tabcontent = document.getElementsByClassName("tabcontent");
      for (i = 0; i < tabcontent.length; i++) {
@@ -26,7 +26,6 @@ function openCity(evt, cityName) {
      messagingSenderId: "36622945518",
      appId: "1:36622945518:web:269a50fa006284559737ff"
  };
-
  // Initialize Firebase
  firebase.initializeApp(firebaseConfig);
  /*------------------------------------------------------------------------------------------------------------*/
@@ -52,7 +51,8 @@ function openCity(evt, cityName) {
      if (user) {
          $("#anasayfa_div").hide();
          $("#kayıtol_div").hide();
-         $("#login_div").show();
+         $("#login_div").hide();
+         $("#anapanel").show()
          var user = firebase.auth().currentUser;
          if (user != null) {
              var email_id = user.email;
@@ -62,9 +62,20 @@ function openCity(evt, cityName) {
          $("#anasayfa_div").hide();
          $("#kayıtol_div").show();
          $("#login_div").hide();
+         $("#anapanel").hide();
      }
  });
  /*------------------------------------------------------------------------------------------------------------*/
+
+ function anonim() {
+     $("#anasayfa_div").hide();
+     $("#kayıtol_div").hide();
+     $("#login_div").show();
+     $("#anapanel").hide();
+ }
+
+
+
 
  function gonder() {
 
@@ -113,8 +124,6 @@ function openCity(evt, cityName) {
 
 
  }
-
-
 
 
 
@@ -221,6 +230,21 @@ function openCity(evt, cityName) {
 
  /*------------------------------------------------------------------------------------------------------------*/
 
+ function cık() {
+     firebase.auth().signOut();
+     document.getElementById('kayıtol_div').style.display = "block";
+     document.getElementById('login_div').style.display = "none";
+     document.getElementById('anasayfa_div').style.display = "none";
+     $("#kayıtol_div").show();
+     $("#login_div").hide();
+     $("#anasayfa_div").hide();
+     $("#anapanel").hide();
+     document.getElementById("typedText").value = "";
+ }
+
+
+ 
+
  //Kullanıcının Çıkış İşlemi Butonun Fonksiyonu
 
  document.getElementById('logout').onclick = function() {
@@ -231,6 +255,7 @@ function openCity(evt, cityName) {
      $("#kayıtol_div").show();
      $("#login_div").hide();
      $("#anasayfa_div").hide();
+     $("#anapanel").hide();
      document.getElementById("typedText").value = "";
  }
 
@@ -394,3 +419,55 @@ function openCity(evt, cityName) {
          buttons: false,
      });
  }
+
+
+
+ /*
+ var ImgName, ImgUrl;
+ var files = [];
+ var reader;
+
+
+
+ document.getElementById('upload').onclick = function(e) {
+     var input = document.createElement('input');
+
+     input.type = 'file';
+     input.click();
+
+
+     input.onchange = e => {
+         files = e.target.files;
+         reader = new FileReader();
+         reader = fileName = file.name;
+         reader.onload = function() {
+             document.getElementById("myimg").src = reader.result;
+         }
+         reader.readAsDataURL(this.documentFile);
+     }
+     input.click();
+     ImgName = document.getElementById('namebox').value;
+     var uploadTask = firebase.storage().ref('Images/' + ImgName).put(files[0]);
+
+     uploadTask.on('state_changed', function(snapshot) {
+             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+             document.getElementById('upProgress').innerHTML = 'Upload' + progress + '%';
+
+         },
+         function(error) {
+             alert('Resim Gönderilemedi !');
+         },
+         function() {
+             uploadTask.snapshot.ref.getDownloadURL().then(function(url) {
+                 ImgUrl = url;
+                 var num = 0;
+                 num++;
+                 firebase.database().ref('Pictures/' + num).set({
+                     İd: num,
+                     Name: ImgName,
+                     Link: ImgUrl
+                 });
+                 alert('Resim Başarılı Bir Şekilde Gönderildi...');
+             });
+         });
+ }*/
