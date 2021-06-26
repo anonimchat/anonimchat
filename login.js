@@ -94,7 +94,7 @@
              createdDate: today + dt,
              Şifresi: password_fi,
              DoğumTarihi: yaş,
-             security: göz
+             GizlilikSözleşmesi: göz
          });
          swal({
              title: "ÖNEMLİ BİLGİ!",
