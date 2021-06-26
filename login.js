@@ -51,8 +51,7 @@
      if (user) {
          $("#anasayfa_div").hide();
          $("#kayıtol_div").hide();
-         $("#login_div").hide();
-         $("#anapanel").show()
+         $("#login_div").show();
          var user = firebase.auth().currentUser;
          if (user != null) {
              var email_id = user.email;
@@ -62,17 +61,11 @@
          $("#anasayfa_div").hide();
          $("#kayıtol_div").show();
          $("#login_div").hide();
-         $("#anapanel").hide();
+        
      }
  });
  /*------------------------------------------------------------------------------------------------------------*/
 
- function anonim() {
-     $("#anasayfa_div").hide();
-     $("#kayıtol_div").hide();
-     $("#login_div").show();
-     $("#anapanel").hide();
- }
 
 
 
@@ -230,21 +223,6 @@
 
  /*------------------------------------------------------------------------------------------------------------*/
 
- function cık() {
-     firebase.auth().signOut();
-     document.getElementById('kayıtol_div').style.display = "block";
-     document.getElementById('login_div').style.display = "none";
-     document.getElementById('anasayfa_div').style.display = "none";
-     $("#kayıtol_div").show();
-     $("#login_div").hide();
-     $("#anasayfa_div").hide();
-     $("#anapanel").hide();
-     document.getElementById("typedText").value = "";
- }
-
-
- 
-
  //Kullanıcının Çıkış İşlemi Butonun Fonksiyonu
 
  document.getElementById('logout').onclick = function() {
@@ -258,6 +236,21 @@
      $("#anapanel").hide();
      document.getElementById("typedText").value = "";
  }
+
+
+
+ function cık() {
+     firebase.auth().signOut();
+     document.getElementById('kayıtol_div').style.display = "block";
+     document.getElementById('login_div').style.display = "none";
+     document.getElementById('anasayfa_div').style.display = "none";
+     $("#kayıtol_div").show();
+     $("#login_div").hide();
+     $("#anasayfa_div").hide();
+     $("#anapanel").hide();
+     document.getElementById("typedText").value = "";
+ }
+
 
  /*------------------------------------------------------------------------------------------------------------*/
 
