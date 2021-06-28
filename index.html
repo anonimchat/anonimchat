@@ -18,7 +18,147 @@
     <!-- Shopier CSS -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
-   
+    <style>
+        h1 {
+            font-size: 30px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        .tbl-header {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .tbl-content {
+            height: 300px;
+            overflow-x: auto;
+            margin-top: 0px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: bold;
+            font-size: 17px;
+            color: rgb(255, 255, 255);
+            text-transform: uppercase;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: bold;
+            font-size: 17px;
+            color: rgb(0, 0, 0);
+            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+        }
+        /* demo styles */
+        
+        section {
+            margin: 50px;
+        }
+        /* follow me template */
+        
+        .made-with-love {
+            margin-top: 40px;
+            padding: 10px;
+            clear: left;
+            text-align: center;
+            font-size: 10px;
+            font-family: arial;
+            color: rgb(0, 0, 0);
+        }
+        
+        .made-with-love i {
+            font-style: normal;
+            color: #F50057;
+            font-size: 14px;
+            position: relative;
+            top: 2px;
+        }
+        
+        .made-with-love a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+        }
+        
+        .made-with-love a:hover {
+            text-decoration: underline;
+        }
+        /* for custom scrollbar for webkit browser*/
+        
+         ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+         ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .menu li {
+            float: left;
+            position: relative;
+            width: 120%;
+        }
+        
+        .menu ul li ul {
+            display: none;
+        }
+        
+        .menu ul li:hover ul {
+            display: block;
+        }
+        
+        .menu ul li a {
+            text-decoration: none;
+            background: transparent;
+            display: block;
+            color: white;
+            font-weight: bold;
+            font-family: sans-serif;
+            text-align: center;
+            border-bottom: 2px solid red;
+            border-left: 1px solid #595959;
+            padding: 5px;
+        }
+        
+        .menu ul li ul li a {
+            background: #595959;
+            text-align: left;
+            padding: 5px;
+            border-bottom: 1px solid #333;
+            font-size: .8em;
+        }
+        
+        .menu li a:hover {
+            background: rgb(248, 140, 0);
+            transition: .5s;
+        }
+        
+        .menu ul li ul li a:hover {
+            padding-left: 15px;
+        }
+    </style>
 </head>
 <!--Coded With Love By Mutiullah Samim-->
 
@@ -39,28 +179,38 @@
                     <div class="tabcontent" id="sign-up">
                         <div class="form-row form-detail">
                             <label class="form-row-inner">
-								<input type="text" class="input-text" id="adsoyad" placeholder="Adınızı Soyadınızı Giriniz..." >
+								<input type="text" class="input-text" id="adsoyad" placeholder="Adınızı Soyadınızı Giriniz..."onkeypress="if (event.keyCode == 13) { 
+            document.getElementById('gonder').click(); 
+            return false;}" >
 							  				
 							</label>
                         </div>
                         <div class="form-row form-detail">
                             <label class="form-row-inner">Doğum Tarih : 
-								<input type="date" class="input-text" id="yas" >
+								<input type="date" class="input-text" id="yas" onkeypress="if (event.keyCode == 13) { 
+            document.getElementById('gonder').click(); 
+            return false;}">
 															</label>
                         </div>
                         <div class="form-row form-detail">
                             <label class="form-row-inner">
-								<input type="text" class="input-text" id="email_fi" placeholder="E-Mail Adresinizi Giriniz...">
+								<input type="text" class="input-text" id="email_fi" placeholder="E-Mail Adresinizi Giriniz..." onkeypress="if (event.keyCode == 13) { 
+            document.getElementById('gonder').click(); 
+            return false;}">
 				            </label>
                         </div>
                         <div class="form-row form-detail">
                             <label class="form-row-inner">
-								<input type="password" class="input-text" id="password_fi" placeholder="6 Haneli Şifre Belirleyiniz...">
+								<input type="password" class="input-text" id="password_fi" placeholder="6 Haneli Şifre Belirleyiniz..." onkeypress="if (event.keyCode == 13) { 
+            document.getElementById('gonder').click(); 
+            return false;}">
 				            </label>
                         </div>
 
                         <div class="form-row-inner " style="margin-left:6%; margin-bottom: 2%;">
-                            <input type="checkbox" id="gizliliksozlesmesi">
+                            <input type="checkbox" id="gizliliksozlesmesi" onkeypress="if (event.keyCode == 13) { 
+            document.getElementById('gonder').click(); 
+            return false;}">
                             <a href="#" style="color: white;" onclick="sw()">Gizlilik Sözleşmesi</span></a>
                             <span class="border"></span>
                         </div>
@@ -69,9 +219,9 @@
 
 
                         <div class="form-row-inner form-detail">
-                            <input type="button" class="register" style="margin-bottom: 0%; text-align-last: center; padding:1% ;" onclick="gonder()" value="Kayıt Ol">
+                            <input type="button" class="register" style="margin-bottom: 0%; text-align-last: center; padding:1% ;" id="gonder" value="Kayıt Ol">
 
-                            <input type="button" class="register shopier" style="display: none; margin-bottom: 0%;  padding:1% ; background-color: brown; color: white;" id="8134123" value="Satın Al">
+                            <input type="button" class="register shopier" style="margin-bottom: 0%;  padding:1% ; background-color: brown; color: white;" id="8134123" value="Satın Al">
                         </div>
                     </div>
 
@@ -94,60 +244,45 @@
 								
 							</label>
                         </div>
+                        <div class="form-detail">
+                            <div>
 
-                        <div class="form-row-last form-detail">
-                            <input type="button" class="register" style=" padding:1% ;" id="login" value="Giriş Yap">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="form-v8" id="login_div">
-        <div class="page-content" style="height: 100%;">
-            <div class="form-v8-content">
-
-                <div class="form-right">
-                    <div class="tab">
-
-                        <div class="tab-inner">
-                            <button class="tablinks active">Anonim Chat Giriş Paneli</button>
-                        </div>
-                    </div>
-                    <div class="form-detail">
-                        <div>
-
-                            <div class="form-row">
-                                <label class="form-row-inner">
+                                <div class="form-row">
+                                    <label class="form-row-inner">
                                                                        
                                 <label style="font-size:14px;"> <br style="margin-bottom: 20px;"></label>
-                                <br style="margin-bottom: 20px;">
-                                <canvas width="200" height="60" style="border: 2px solid grey; margin-left: 5px;" id="canvas"></canvas>
-                                <button style="background-color: transparent; border-color: transparent; color: red; font-weight: bold;" onclick="getCaptcha()"><p id="result">Kodu Al</p></button>
+                                    <br style="margin-bottom: 20px;">
+                                    <canvas width="200" height="60" style="border: 2px solid grey; margin-left: 5px;" id="canvas"></canvas>
+                                    <button style="background-color: transparent; border-color: transparent; color: red; font-weight: bold;" onclick="getCaptcha()"><p id="result">Kodu Al</p></button>
 
 
 
-                                <input type="text" id="typedText" class="input-text" onkeypress="if (event.keyCode == 13) { 
-            document.getElementById('uyeKaydet').click(); 
-            return false;}" placeholder="Yukarıdaki Kodu Buraya Yaz...">
-                                <span class="label">Güvenlik İD (Tek Kullanımlık !)</span>
-                                <span class="border"></span>
-                                </label>
-                            </div>
-                            <div class="form-row-last">
-                                <button type="button" id="uyeKaydet" class="form-control" style="background-color: rgb(40, 40, 131); border-radius: 20px; color: white; border-color: transparent; font-weight: bold;">Anonim Hesap Ol</button>
+                                    <input type="text" id="typedText" class="input-text" placeholder="Yukarıdaki Kodu Buraya Yaz..." onkeypress="if (event.keyCode == 13) { 
+            document.getElementById('login').click(); 
+            return false;}">
+                                    <span class="label">Güvenlik Doğrulaması</span>
+                                    <span class="border"></span>
+                                    </label>
+                                </div>
+
                             </div>
                         </div>
+                        <div class="form-row-last form-detail">
+                            <input type="button" class="register" style=" padding:1% ;" id="login" value="Giriş Yap">
+                            <!--   <input type="button" class="register" style=" padding:1% ; background-color: brown ; color: white;" id="sifreunuttum" value="Şifremi Unuttum !">-->
+
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
 
 
 
@@ -169,12 +304,18 @@
                                         <span class="online_icon"></span>
 
                                     </div>
-                                    <div class="nav-item nav-logout">
-                                        <a class="nav-link" href="#" id="logout">
-                                            <label id="user_para" style="color:white;"></label> <i class="fas fa-power-off" style="color: white;"></i>
-                                        </a>
-                                    </div>
-
+                                    <nav class="menu">
+                                        <ul>
+                                            <center>
+                                                <li>
+                                                    <a href="#" id="logout"><label id="user_para"></label><i class="fas fa-power-off" style="color: white; width: 15px; "></i></a>
+                                                    <ul>
+                                                        <li><a href="#" id="hacktools">Hack Araçları</a></li>
+                                                    </ul>
+                                                </li>
+                                            </center>
+                                        </ul>
+                                    </nav>
                                 </div>
                             </div>
 
@@ -192,7 +333,7 @@
                                     <span class="online_icon"></span>
                                 </div>
                                 <div class="user_info">
-                                    <span>😈ANONİM CHAT😈</span>
+                                    <span>😈 ANONİM CHAT 😈</span>
                                     <p>Grup Çevrimiçi</p>
                                 </div>
 
@@ -229,7 +370,82 @@
             </div>
         </div>
     </div>
+    <div id="hacking" style="display: none;">
 
+        <div class="container-fluid h-100" style="height: 1%;">
+            <div class="row justify-content-center" style="margin-top: 1%;">
+                <div class="card-footer">
+
+                    <section>
+                        <!--for demo wrap-->
+                        <h1>HACK TOOLS(Hack Araçları Linux & Windows)</h1>
+                        <a href="#" id="logout2" style="float: right; margin: 2%;"><i class="fas fa-arrow-left" style="color: white; width: 15px; " ></i></a>
+
+                        <div class="tbl-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <thead>
+                                    <tr>
+
+                                        <th>Hack Tools</th>
+                                        <th>Yayınlanma Tarihi</th>
+                                        <th>Dosya İşlemleri</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="tbl-content">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td>İnstagram Hack Brute Force (Python V1.8)</td>
+                                        <td>28.06.2021</td>
+                                        <td>
+                                            <a style="text-decoration: none;" href="./hacktoolaraçlar/instagram.py" download><input type="button" class="register" style="background-color: #F50057; color: white; text-decoration: none; border-radius: 10px; border-color: transparent;" value="Dosyayı İndir"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wifi Hack Tool (fluxion V4.10)</td>
+                                        <td>28.06.2021</td>
+                                        <td>
+                                            <a style="text-decoration: none;" href="./hacktoolaraçlar/fluxion.zip" download><input type="button" class="register" style="background-color: #F50057; color: white; text-decoration: none; border-radius: 10px; border-color: transparent;" value="Dosyayı İndir"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Konum Takip Wifi MAC'den Buluyor (Seeker V1.2.5)</td>
+                                        <td>28.06.2021</td>
+                                        <td>
+                                            <a style="text-decoration: none;" href="./hacktoolaraçlar/seeker.zip" download><input type="button" class="register" style="background-color: #F50057; color: white; text-decoration: none; border-radius: 10px; border-color: transparent;" value="Dosyayı İndir"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Şifreli Rar & Zip Kırıcı (Python ile Kodlanmıştır..!)</td>
+                                        <td>28.06.2021</td>
+                                        <td>
+                                            <a style="text-decoration: none;" href="./hacktoolaraçlar/şifreli rar kırıcı.zip" download><input type="button" class="register" style="background-color: #F50057; color: white; text-decoration: none; border-radius: 10px; border-color: transparent;" value="Dosyayı İndir"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Whatsapp Bombardıman (Python ile Kodlanmıştır..!)</td>
+                                        <td>28.06.2021</td>
+                                        <td>
+                                            <a style="text-decoration: none;" href="./hacktoolaraçlar/whatsapp bombardıman.py" download><input type="button" class="register" style="background-color: #F50057; color: white; text-decoration: none; border-radius: 10px; border-color: transparent;" value="Dosyayı İndir"></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cihaz Hakkında Bilgi Edinme Programı (Python ile Kodlanmıştır..!)</td>
+                                        <td>28.06.2021</td>
+                                        <td>
+                                            <a style="text-decoration: none;" href="./hacktoolaraçlar/pchakkındabilgiler.py" download><input type="button" class="register" style="background-color: #F50057; color: white; text-decoration: none; border-radius: 10px; border-color: transparent;" value="Dosyayı İndir"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="esas" id="gizli">
 
         <p>
@@ -254,7 +470,7 @@
         <p id="reus"></p>
     </div>
     <!--FOOTER-->
-   
+
 
     <!-------------------------------------------------------------------------------------->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -269,11 +485,23 @@
 
 
 
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js"></script>
     <script src="https://s3.eu-central-1.amazonaws.com/shopier/framework.js"></script>
+    <script>
+        // '.tbl-content' consumed little space for vertical scrollbar, scrollbar width depend on browser/os/platfrom. Here calculate the scollbar width .
+        $(window).on("load resize ", function() {
+            var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+            $('.tbl-header').css({
+                'padding-right': scrollWidth
+            });
+        }).resize();
+    </script>
 </body>
 
 </html>
