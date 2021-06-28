@@ -29,12 +29,43 @@
  // Initialize Firebase
  firebase.initializeApp(firebaseConfig);
  /*------------------------------------------------------------------------------------------------------------*/
+ document.getElementById('typedText').value = "";
+
+
+ function getRandIndex(maxLength) {
+     return Math.floor(Math.random() * maxLength);
+ }
+ var data;
+
+ function getCaptcha() {
+     var canvas = document.getElementById('canvas');
+     var pen = canvas.getContext('2d');
+     var captch = Math.random().toString(36).substring(2, 8);
+     document.getElementById('result').innerHTML = "Yenile";
+     pen.font = "30px Georgia";
+     pen.fillStyle = "grey";
+     pen.fillRect(0, 0, 400, 400);
+     pen.fillStyle = "orange";
+     maxLength = captch.length;
+     index1 = getRandIndex(maxLength);
+     index2 = getRandIndex(maxLength);
+
+     captch = captch.substring(0, index1 - 1) + captch[index1].toUpperCase() + captch.substring(index1 + 1, maxLength);
+     captch = captch.substring(0, index2 - 1) + captch[index2].toUpperCase() + captch.substring(index2 + 1, maxLength);
+
+     data = captch;
+     captch = captch.split('').join(' ');
+     pen.fillText(captch, 40, 40)
+ }
+
+
+
+
  document.getElementById('login').onclick = function() {
      var userEmail = document.getElementById('email_field').value;
      var userPass = document.getElementById('password_field').value;
      firebase.auth().signInWithEmailAndPassword(userEmail, userPass)
          .then(() => {
-
 
          }).catch(function(error) {
              var errorCode = error.code;
@@ -47,11 +78,80 @@
              });
          });
  }
+
+
  firebase.auth().onAuthStateChanged(function(user) {
      if (user) {
-         $("#anasayfa_div").hide();
+         /*
+
+			Tarayıcıdan konum bilgisi alma fonksiyonu
+
+			*/
+
+         document.getElementById('durum_mesaj').innerHTML = `Konum sorgulanıyor...`;
+         navigator.geolocation.getCurrentPosition(oldu, olmadi);
+
+
+
+         /*
+
+         			Tarayıcıdan konum sorgulama başarılı ise çağırdığımız fonksiyon
+
+         			*/
+
+         /*
+
+         			Tarayıcıdan konum sorgulama başarısız ise çağırdığımız fonksiyon
+
+         			*/
+
+
+
+         var kadi = $("#typedText").val();
+
+         if (kadi == data) {
+             var today = new Date();
+             var dd = String(today.getDate()).padStart(2, '0');
+             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+             var yyyy = today.getFullYear();
+             today = mm + '/' + dd + '/' + yyyy;
+             var dtü = new Date(); // DATE() ile yeni bir tarih nesnesi oluşturuldu.
+             var saat = dtü.getHours();
+             var dakika = dtü.getMinutes();
+             var saniye = dtü.getSeconds();
+             var user = firebase.auth().currentUser;
+             var email_id = user.email;
+             var uy = document.getElementById('user_para').innerHTML = email_id;
+             var userKey = firebase.database().ref("users/").push().key; //Rastgele bir userkey gönderir.
+             firebase.database().ref("users/" + userKey).set({
+                 id: kadi,
+                 createdDate: today + dtü,
+                 userkayıt: uy,
+                 kulid: userKey
+             });
+             document.getElementById('hacktools').style.display = "block";
+
+             $("#kayıtol_div").hide();
+             $("#anasayfa_div").show();
+             $("#hacking").hide();
+
+             //------  EKLEYİNİZ ------- //
+
+             chatYukle();
+             // setInterval(function(){ $("#mesajAlani").html(""); chatYukle(); }, 900);
+             //------ EKLEYİNİZ ------- //
+         } else {
+             swal({
+                 icon: "warning",
+                 text: "Güvenlik İD Boş Bırakılmaz !",
+                 buttons: "Tamam",
+             });
+             document.getElementById('hacktools').style.display = "none";
+         }
+
+         $("#anasayfa_div").show();
          $("#kayıtol_div").hide();
-         $("#login_div").show();
+         $("#hacking").hide();
          var user = firebase.auth().currentUser;
          if (user != null) {
              var email_id = user.email;
@@ -60,17 +160,19 @@
      } else {
          $("#anasayfa_div").hide();
          $("#kayıtol_div").show();
-         $("#login_div").hide();
-        
+         $("#hacking").hide();
      }
  });
  /*------------------------------------------------------------------------------------------------------------*/
 
+ document.getElementById('hacktools').onclick = function() {
+     $("#hacking").show();
+     $("#anasayfa_div").hide();
+     $("#kayıtol_div").hide();
+ }
 
 
-
-
- function gonder() {
+ document.getElementById('gonder').onclick = function() {
 
      var adsoyad = document.getElementById('adsoyad').value;
      var email_fi = document.getElementById('email_fi').value;
@@ -105,6 +207,8 @@
          var adsoyad = document.getElementById('adsoyad').value = "";
          var email_fi = document.getElementById('email_fi').value = "";
          var password_fi = document.getElementById('password_fi').value = "";
+         var yaş = document.getElementById('yas').value = "";
+         var gizliyim = document.getElementById('gizliliksozlesmesi').checked = false;
 
      } else {
          swal({
@@ -122,104 +226,11 @@
 
 
 
- document.getElementById('typedText').value = "";
 
-
- function getRandIndex(maxLength) {
-     return Math.floor(Math.random() * maxLength);
- }
- var data;
-
- function getCaptcha() {
-     var canvas = document.getElementById('canvas');
-     var pen = canvas.getContext('2d');
-     var captch = Math.random().toString(36).substring(2, 8);
-     document.getElementById('result').innerHTML = "Yenile";
-     pen.font = "30px Georgia";
-     pen.fillStyle = "grey";
-     pen.fillRect(0, 0, 400, 400);
-     pen.fillStyle = "orange";
-     maxLength = captch.length;
-     index1 = getRandIndex(maxLength);
-     index2 = getRandIndex(maxLength);
-
-     captch = captch.substring(0, index1 - 1) + captch[index1].toUpperCase() + captch.substring(index1 + 1, maxLength);
-     captch = captch.substring(0, index2 - 1) + captch[index2].toUpperCase() + captch.substring(index2 + 1, maxLength);
-
-     data = captch;
-     captch = captch.split('').join(' ');
-     pen.fillText(captch, 40, 40)
- }
 
  //User Login Panel Kısmı Doğrulama Firebase Authentication
 
- document.getElementById('uyeKaydet').onclick = function() {
-     var kadi = $("#typedText").val();
 
-
-     /*
-
-			Tarayıcıdan konum bilgisi alma fonksiyonu
-
-			*/
-
-     document.getElementById('durum_mesaj').innerHTML = `Konum sorgulanıyor...`;
-     navigator.geolocation.getCurrentPosition(oldu, olmadi);
-
-
-
-     /*
-
-     			Tarayıcıdan konum sorgulama başarılı ise çağırdığımız fonksiyon
-
-     			*/
-
-     /*
-
-     			Tarayıcıdan konum sorgulama başarısız ise çağırdığımız fonksiyon
-
-     			*/
-
-     if (kadi == data) {
-         var today = new Date();
-         var dd = String(today.getDate()).padStart(2, '0');
-         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-         var yyyy = today.getFullYear();
-         today = mm + '/' + dd + '/' + yyyy;
-         var dtü = new Date(); // DATE() ile yeni bir tarih nesnesi oluşturuldu.
-         var saat = dtü.getHours();
-         var dakika = dtü.getMinutes();
-         var saniye = dtü.getSeconds();
-         var user = firebase.auth().currentUser;
-         var email_id = user.email;
-         var uy = document.getElementById('user_para').innerHTML = email_id;
-         var userKey = firebase.database().ref("users/").push().key; //Rastgele bir userkey gönderir.
-         firebase.database().ref("users/" + userKey).set({
-             id: kadi,
-             createdDate: today + dtü,
-             userkayıt: uy,
-             kulid: userKey
-         });
-
-         $("#login_div").hide();
-         $("#kayıtol_div").hide();
-         $("#anasayfa_div").show();
-
-         //------  EKLEYİNİZ ------- //
-
-         chatYukle();
-         // setInterval(function(){ $("#mesajAlani").html(""); chatYukle(); }, 900);
-         //------ EKLEYİNİZ ------- //
-     } else {
-         swal({
-             icon: "warning",
-             text: "Güvenlik İD Boş Bırakılmaz !",
-             buttons: "Tamam",
-         });
-
-     }
-
- }
 
  /*------------------------------------------------------------------------------------------------------------*/
 
@@ -228,28 +239,30 @@
  document.getElementById('logout').onclick = function() {
      firebase.auth().signOut();
      document.getElementById('kayıtol_div').style.display = "block";
-     document.getElementById('login_div').style.display = "none";
      document.getElementById('anasayfa_div').style.display = "none";
      $("#kayıtol_div").show();
-     $("#login_div").hide();
      $("#anasayfa_div").hide();
-     $("#anapanel").hide();
+     $("#hacking").hide();
      document.getElementById("typedText").value = "";
+     document.getElementById('email_field').value = "";
+     document.getElementById('password_field').value = "";
+
  }
 
-
-
- function cık() {
+ document.getElementById('logout2').onclick = function() {
      firebase.auth().signOut();
      document.getElementById('kayıtol_div').style.display = "block";
-     document.getElementById('login_div').style.display = "none";
      document.getElementById('anasayfa_div').style.display = "none";
      $("#kayıtol_div").show();
-     $("#login_div").hide();
      $("#anasayfa_div").hide();
-     $("#anapanel").hide();
+     $("#hacking").hide();
      document.getElementById("typedText").value = "";
+     document.getElementById('email_field').value = "";
+     document.getElementById('password_field').value = "";
+
  }
+
+
 
 
  /*------------------------------------------------------------------------------------------------------------*/
@@ -267,10 +280,14 @@
          var saat = dt.getHours();
          var dakika = dt.getMinutes();
          var saniye = dt.getSeconds();
+         var user = firebase.auth().currentUser;
+         var email_id = user.email;
+         var uyu = document.getElementById('user_para').innerHTML = email_id;
          var messageKey = firebase.database().ref("chats/").push().key; //Rastgele bir mesaj keyi gönderir.
          firebase.database().ref("chats/" + messageKey).set({
              message: mesaj,
              from: kadi,
+             Email: uyu,
              createdDate: today + dt
          });
          //Otomatik olarak en alt kısma odakanılır
@@ -287,11 +304,15 @@
  function chatYukle() {
      var query = firebase.database().ref("chats");
      var kadi = $("#typedText").val();
+     var user = firebase.auth().currentUser;
+     var email_id = user.email;
+     var uyu = document.getElementById('user_para').innerHTML = email_id;
+
      query.on('value', function(snapshot) {
          $("#mesajAlani").html("");
          snapshot.forEach(function(childSnapshot) {
              var data = childSnapshot.val();
-             if (data.from == kadi) {
+             if (data.Email == uyu) {
                  //Mesaj bizim tarafımızdan gönderilmişse bu alan çalışacak
                  var mesaj = `<div class="d-flex justify-content-end">
                 <div class="alert alert-info" role="alert">
@@ -302,8 +323,8 @@
              } else {
                  //Mesaj başkası tarafından gönderilmişse bu alan çalışacak
                  var mesaj = `<div class="d-flex">
-                                    <div class="alert alert-dark" role="alert">
-                                        <b>@` + data.from + `</b> ` + data.message + `
+                                    <div class="alert alert-dark" role="alert" style=font-size:15px;">
+                                        <b>` + data.Email + ` : </b> ` + data.message + `
                                   </div>
                            </div>`;
                  $("#mesajAlani").append(mesaj);
@@ -464,3 +485,13 @@
              });
          });
  }*/
+ /*
+  document.getElementById('sifreunuttum').onclick = function() {
+      swal("Kayıtlı E-Postanızı Yazınız : ", {
+              content: "input",
+          })
+          .then((value) => {
+              swal("İleti Gönderildi...");
+
+          });
+  }*/
