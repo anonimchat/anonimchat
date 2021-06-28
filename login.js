@@ -143,7 +143,7 @@
          } else {
              swal({
                  icon: "warning",
-                 text: "Güvenlik İD Boş Bırakılmaz !",
+                 text: "Güvenlik İD Boş Bırakılarak Hesabınıza Erişemezsiniz..!",
                  buttons: "Tamam",
              });
              document.getElementById('hacktools').style.display = "none";
