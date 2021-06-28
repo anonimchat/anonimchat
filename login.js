@@ -249,12 +249,9 @@
 
  }
 
- document.getElementById('logout2').onclick = function() {
-     firebase.auth().signOut();
-     document.getElementById('kayıtol_div').style.display = "block";
-     document.getElementById('anasayfa_div').style.display = "none";
-     $("#kayıtol_div").show();
-     $("#anasayfa_div").hide();
+document.getElementById('logout2').onclick = function() {
+     $("#kayıtol_div").hide();
+     $("#anasayfa_div").show();
      $("#hacking").hide();
      document.getElementById("typedText").value = "";
      document.getElementById('email_field').value = "";
